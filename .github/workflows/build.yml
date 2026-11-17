@@ -24,12 +24,10 @@ jobs:
           # 2. Enter the unzipped folder
           cd StreamViewLite
 
-          # 3. FIX THE DEPENDENCY (Replace the whole line in build.gradle.kts)
-          # We use version v2.4.0 which is guaranteed to exist on JitPack
-          sed -i 's/implementation.*RootEncoder.*root-encoder.*$/implementation("com.github.pedroSG94.RootEncoder:root-encoder:v2.4.0")/g' app/build.gradle.kts
+          # 3. FIX THE DEPENDENCY (Uses v2.5.6 matching the tag exactly)
+          sed -i 's/implementation.*RootEncoder.*root-encoder.*$/implementation("com.github.pedroSG94.RootEncoder:root-encoder:v2.5.6")/g' app/build.gradle.kts
 
-          # 4. Verify the change (optional, just to be sure)
-          echo "Build file content:"
+          # 4. Verify the change
           grep -i rootencoder app/build.gradle.kts
 
           # 5. Run the build
