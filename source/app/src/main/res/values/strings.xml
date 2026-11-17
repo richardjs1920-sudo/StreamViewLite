@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StreamView Lite</string>
+    <string name="pick_video">Pick Video (Fake Camera)</string>
+    <string name="save">Save Settings</string>
+    <string name="start_stream">Start RTMP Stream</string>
+    <string name="open_browser">Open Browser (Test)</string>
+    <string name="rtmp_url">RTMP URL (rtmp://...)</string>
+    <string name="stream_key">Stream Key</string>
+    <string name="status_no_video">No video selected</string>
+</resources>
