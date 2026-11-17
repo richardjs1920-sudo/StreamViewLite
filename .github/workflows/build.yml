@@ -24,10 +24,11 @@ jobs:
           # 2. Enter the unzipped folder
           cd StreamViewLite
 
-          # 3. FIX THE DEPENDENCY (Using v3.1.0 which is guaranteed to exist on JitPack)
-          sed -i 's/implementation.*RootEncoder.*root-encoder.*$/implementation("com.github.pedroSG94.RootEncoder:root-encoder:v3.1.0")/g' app/build.gradle.kts
+          # 3. FIX THE DEPENDENCY (Correct Group ID + Artifact + v5.2.0)
+          # JitPack requires 'com.github.pedroSG94:RootEncoder:v5.2.0'
+          sed -i 's/implementation.*RootEncoder.*$/implementation("com.github.pedroSG94:RootEncoder:v5.2.0")/g' app/build.gradle.kts
 
-          # 4. Verify the change
+          # 4. Verify the change (Optional)
           echo "Build file content:"
           grep -i rootencoder app/build.gradle.kts
 
