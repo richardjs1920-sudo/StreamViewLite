@@ -18,12 +18,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Extract source.zip
+        run: unzip -q source.zip
+
       - name: Locate Gradle project
         run: |
           set -e
           SETTINGS=$(find . -name settings.gradle.kts -not -path '*/build/*' | head -n 1)
           if [ -z "$SETTINGS" ]; then
-            echo "No settings.gradle.kts found anywhere in the repo."
+            echo "No settings.gradle.kts found after extracting."
             find . -maxdepth 3 -not -path './.git*'
             exit 1
           fi
