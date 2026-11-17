@@ -1,0 +1,37 @@
+name: Build APK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Unzip source
+        run: |
+          unzip source.zip
+
+      - name: Enter Project Directory
+        # Adjust this line if your unzipped folder name is different
+        run: |
+          ls -a
+          cd StreamViewLite
+
+      - name: Build APK
+        run: |
+          gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyStreamApp
+          path: StreamViewLite/app/build/outputs/apk/debug/app-debug.apk
