@@ -18,13 +18,26 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Locate Gradle project
+        run: |
+          set -e
+          SETTINGS=$(find . -name settings.gradle.kts -not -path '*/build/*' | head -n 1)
+          if [ -z "$SETTINGS" ]; then
+            echo "No settings.gradle.kts found anywhere in the repo."
+            find . -maxdepth 3 -not -path './.git*'
+            exit 1
+          fi
+          PROJECT_DIR=$(dirname "$SETTINGS")
+          echo "Found Gradle project at: $PROJECT_DIR"
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+
       - name: Build debug APK
-        working-directory: StreamViewLite
+        working-directory: ${{ env.PROJECT_DIR }}
         run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: MyStreamApp
-          path: StreamViewLite/app/build/outputs/apk/debug/app-debug.apk
+          path: '**/app/build/outputs/apk/debug/app-debug.apk'
           if-no-files-found: error
