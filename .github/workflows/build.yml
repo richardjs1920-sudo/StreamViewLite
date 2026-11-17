@@ -18,8 +18,17 @@ jobs:
 
       - name: Unzip and Build
         run: |
+          # 1. Unzip your file
           unzip source.zip
+
+          # 2. Enter the unzipped folder
           cd StreamViewLite
+
+          # 3. FIX THE TYPO IN THE DEPENDENCY FILE
+          # (Changes 'root-encoder' to 'library-rtmp' automatically)
+          sed -i 's/root-encoder:2.5.6/library-rtmp:2.5.6/' app/build.gradle.kts
+
+          # 4. Run the build
           gradle assembleDebug --no-daemon
 
       - name: Upload APK
