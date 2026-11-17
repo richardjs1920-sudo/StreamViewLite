@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,23 +16,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Unzip and Build
+      - name: Build
         run: |
-          # 1. Unzip your file
-          unzip source.zip
-
-          # 2. Enter the unzipped folder
           cd StreamViewLite
-
-          # 3. FIX THE DEPENDENCY (Correct Group ID + Artifact + v5.2.0)
-          # JitPack requires 'com.github.pedroSG94:RootEncoder:v5.2.0'
-          sed -i 's/implementation.*RootEncoder.*$/implementation("com.github.pedroSG94:RootEncoder:v5.2.0")/g' app/build.gradle.kts
-
-          # 4. Verify the change (Optional)
-          echo "Build file content:"
-          grep -i rootencoder app/build.gradle.kts
-
-          # 5. Run the build
           gradle assembleDebug --no-daemon
 
       - name: Upload APK
